@@ -11,7 +11,7 @@ A classic Pong arcade game implemented on an ATmega328P microcontroller (Arduino
 | **Game Modes** | 1 Player vs AI or 2 Player local multiplayer |
 | **AI Difficulty** | Easy, Medium, and Hard levels with varying AI speed and starting ball velocity |
 | **Ball Physics** | Angle-based deflection where the output angle depends on where the ball hits the paddle. Centre hits go flat, edge hits go steep |
-| **Progressive Speed** | Ball accelerates on every paddle hit, with per-mode increments (Easy: +0.03, Medium: +0.05, Hard: +0.08, PvP: +0.10) and a cap at 2.5x |
+| **Progressive Speed** | Ball accelerates on every paddle hit, with per-mode speed multiplier increments per hit (Easy: +0.03, Medium: +0.05, Hard: +0.08, PvP: +0.10) and a cap at 2.5× the starting speed |
 | **Pause Menu** | Accessible at any time with Resume and Main Menu options |
 | **Audio Feedback** | Distinct tones for wall bounce (1200 Hz), paddle hit (2000 Hz), score (400 Hz), and win (1500 Hz) |
 | **Non-blocking Input** | Button debouncing via `millis()` timestamps, no blocking delays in the game loop |
@@ -45,8 +45,8 @@ A classic Pong arcade game implemented on an ATmega328P microcontroller (Arduino
 |---|---|
 | D2 | Player 1 Up |
 | D3 | Player 1 Down |
-| D4 | Player 2 Up / Menu Navigate |
-| D5 | Player 2 Down / Menu Navigate |
+| D4 | Player 2 Up (gameplay) / Navigate Up in menus |
+| D5 | Player 2 Down (gameplay) / Navigate Down in menus |
 | D6 | Buzzer |
 | D7 | Pause Button |
 | A4 (SDA) | OLED I2C Data |
