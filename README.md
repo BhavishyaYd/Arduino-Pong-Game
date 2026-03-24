@@ -1,27 +1,103 @@
-# Arduino-Pong-Game
-This project implements a classic Pong arcade game on an ATmega328P microcontroller. The system is built around a finite state machine that manages menus, gameplay, and pause logic. It demonstrates real-world microcontroller concepts including I2C display interfacing, non-blocking input handling, floating-point physics, collision detection, and PWM audio — all running without an operating system on constrained hardware.
+# 🕹️ Arduino Pong Game
 
-Functionality
+A fully functional Pong game built on an Arduino Uno with a 128x64 SSD1306 OLED display.
+Supports single-player vs AI and two-player local multiplayer, with difficulty selection,
+physics-based ball mechanics, and audio feedback via a passive buzzer.
 
-Game Modes — 1 Player vs AI or 2 Player local multiplayer
-AI Difficulty — Easy, Medium, and Hard levels with varying AI speed and starting ball velocity
-Ball Physics — Angle-based deflection where the output angle depends on where the ball hits the paddle. Centre hits go flat, edge hits go steep
-Progressive Speed — Ball accelerates on every paddle hit, with per-mode increments (Easy: +0.03, Medium: +0.05, Hard: +0.08, PvP: +0.10) and a cap at 2.5x
-Pause Menu — Accessible at any time with Resume and Main Menu options
-Audio Feedback — Distinct tones for wall bounce (1200Hz), paddle hit (2000Hz), score (400Hz), and win (1500Hz)
-Non-blocking Input — Button debouncing via millis() timestamps, no blocking delays in the game loop
-Win Screen — Displays winner and final score, then returns to the main menu
+---
 
+## 📋 Abstract
 
-Components Used
-ComponentDetailsArduino UnoATmega328P, 16 MHz, 5V logicSSD1306 OLED Display128x64 pixels, I2C address 0x3CPush Buttons6x tactile switches — P1 Up/Down, P2 Up/Down, Pause, SelectPassive BuzzerPWM tone output on pin D6Breadboard & Jumper WiresFor prototyping
+This project implements a classic Pong arcade game on an ATmega328P microcontroller.
+The system is built around a finite state machine that manages menus, gameplay, and pause logic.
+It demonstrates real-world microcontroller concepts including I2C display interfacing,
+non-blocking input handling, floating-point physics, collision detection, and PWM audio —
+all running without an operating system on constrained hardware.
 
-Libraries
+---
 
-Wire.h — I2C communication
-Adafruit_GFX.h — Graphics primitives
-Adafruit_SSD1306.h — OLED display driver
+## ⚙️ Functionality
 
+| Feature | Description |
+|---|---|
+| Game Modes | 1 Player vs AI or 2 Player local multiplayer |
+| AI Difficulty | Easy, Medium, Hard — varying AI speed and starting ball velocity |
+| Ball Physics | Angle-based deflection based on hit position on paddle |
+| Progressive Speed | Ball accelerates every hit, capped at 2.5x starting speed |
+| Pause Menu | Resume or return to Main Menu at any time |
+| Audio Feedback | Distinct tones for wall bounce, paddle hit, score, and win |
+| Input Debounce | millis()-based non-blocking debounce, no blocking delays |
+| Win Screen | Displays winner and final score, auto-returns to menu |
 
-Pin Mapping
-PinFunctionD2Player 1 UpD3Player 1 DownD4Player 2 Up / Menu NavigateD5Player 2 Down / Menu NavigateD6BuzzerD7Pause ButtonA4 (SDA)OLED I2C DataA5 (SCL)OLED I2C Clock
+### Speed Increment by Mode
+
+| Mode / Difficulty | Increment per Hit | Starting Multiplier |
+|---|---|---|
+| AI — Easy | +0.03 | 0.8x |
+| AI — Medium | +0.05 | 1.0x |
+| AI — Hard | +0.08 | 1.3x |
+| Player vs Player | +0.10 | 1.0x |
+
+---
+
+## 🔧 Components Used
+
+| Component | Details |
+|---|---|
+| Arduino Uno | ATmega328P, 16 MHz, 5V logic |
+| SSD1306 OLED Display | 128x64 pixels, I2C address 0x3C |
+| Push Buttons | 6x tactile switches — P1 Up/Down, P2 Up/Down, Pause, Select |
+| Passive Buzzer | PWM tone output on pin D6 |
+| Breadboard & Jumper Wires | For prototyping |
+
+---
+
+## 📌 Pin Mapping
+
+| Pin | Label | Function |
+|---|---|---|
+| D2 | P1_UP | Player 1 move up |
+| D3 | P1_DOWN | Player 1 move down |
+| D4 | P2_UP | Player 2 move up / menu navigate |
+| D5 | P2_DOWN | Player 2 move down / menu navigate |
+| D6 | BUZZER | Passive buzzer PWM output |
+| D7 | PAUSE_BTN | Pause / resume game |
+| A4 | SDA | OLED I2C data line |
+| A5 | SCL | OLED I2C clock line |
+
+---
+
+## 📚 Libraries
+
+- [`Wire.h`](https://www.arduino.cc/reference/en/language/functions/communication/wire/) — I2C communication
+- [`Adafruit_GFX`](https://github.com/adafruit/Adafruit-GFX-Library) — Graphics primitives
+- [`Adafruit_SSD1306`](https://github.com/adafruit/Adafruit_SSD1306) — OLED display driver
+
+---
+
+## 📸 Screenshots
+
+![WhatsApp Image 2026-03-08 at 8 19 03 PM](https://github.com/user-attachments/assets/34f09af1-d99e-42a7-b941-a6270bf16330)
+![WhatsApp Image 2026-03-08 at 8 16 25 PM](https://github.com/user-attachments/assets/c6ed71ef-4ae9-437f-9a02-cf7c3d62345d)
+![WhatsApp Image 2026-03-08 at 8 16 26 PM](https://github.com/user-attachments/assets/8ae821e9-10c8-4e49-b0ee-a87b8e7a4cd7)
+![WhatsApp Image 2026-03-08 at 8 16 25 PM (3)](https://github.com/user-attachments/assets/515dc33c-160f-4c19-84c7-5e508b33842d)
+
+---
+
+## 🚀 How to Use
+
+1. Wire components as per the pin mapping above
+2. Install the required libraries via Arduino Library Manager
+3. Open `pong.ino` in the Arduino IDE
+4. Select **Arduino Uno** as the board and the correct COM port
+5. Upload and play
+
+---
+
+## 🔮 Future Improvements
+
+- EEPROM-based high score storage across power cycles
+- Countdown timer before each serve
+- Ball-spin mechanic based on paddle movement direction
+- Wireless second player via Bluetooth or IR
+- Animated splash screen on startup
